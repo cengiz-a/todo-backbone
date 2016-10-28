@@ -1,10 +1,10 @@
-var app = app || {};
+import Backbone from 'backbone';
 
 var TodoList = Backbone.Collection.extend ({
 	
 	model : app.Todo,
 
-	localStorage: new backbone.LocalStorage('todos-backbone'),
+	localStorage: new Backbone.LocalStorage('todos-backbone'),
 
 	completed: function () {
 		return this.filter (function (todo) {
@@ -12,7 +12,7 @@ var TodoList = Backbone.Collection.extend ({
 		});
 	},
 
-	remainnig: function () {
+	remaining: function () {
 		return this.without.apply ( this, this.completed() );
 	},
 
@@ -23,6 +23,11 @@ var TodoList = Backbone.Collection.extend ({
 		return this.last().get('order') +1;
 	},
 
-	app.Todos = new TodoList();
+	comparator: function ( todo ) {
+		return todo.get('order');
+	}
+	
 
-})
+});
+
+app.Todos = new TodoList();

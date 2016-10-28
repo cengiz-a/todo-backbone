@@ -1,6 +1,6 @@
-var app = app || {};
+import Backbone from 'backbone';
 
-app.Todo = Backbone.Model.extend ({
+var Todo = Backbone.Model.extend ({
 	defaults: {
 		title: '',
 		completed: false

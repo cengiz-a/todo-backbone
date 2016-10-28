@@ -1,11 +1,15 @@
-var app = app || {};
+import Backbone from 'backbone';
 
 
-app.AppView = Backbone.View.extend ({
+
+
+
+var AppView = Backbone.View.extend ({
 
 	el: '#todoapp',
 
-	statsTemplate: _.template(&('#stats-template').html() ),
+	statsTemplate: _.template( $('#stats-template').html() ),
+
 
 	events: {
       'keypress #new-todo': 'createOnEnter',
@@ -27,14 +31,15 @@ app.AppView = Backbone.View.extend ({
       this.listenTo(app.Todos, 'all', this.render);
 
       app.Todos.fetch();
+
     },
 
     render: function () {
 
     	var completed = this.Todos.completed().length;
     	var remaining = this.Todos.remaining().length;
-    
-    	if ( app.Todos.length )  {
+
+    	if ( this.Todos.length )  {
     		this.$main.show();
     		this.$footer.show();
 
@@ -65,7 +70,7 @@ app.AppView = Backbone.View.extend ({
     addAll: function () {
     	this.$('#todo-list').html('');
     	app.Todos.each(this.addOne, this);
-    }
+    },
 
     filterOne : function (todo) {
       todo.trigger('visible');
@@ -108,3 +113,6 @@ app.AppView = Backbone.View.extend ({
     }
 
 });
+
+var view1 = new AppView ({model: model});
+var1.render();
